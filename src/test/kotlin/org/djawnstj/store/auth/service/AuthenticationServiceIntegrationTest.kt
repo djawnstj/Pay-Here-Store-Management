@@ -21,7 +21,7 @@ class AuthenticationServiceIntegrationTest: IntegrationTestSupport() {
     private lateinit var authService: AuthenticationService
 
     @Autowired
-    private lateinit var encoder: PasswordEncoder
+    private lateinit var passwordEncoder: PasswordEncoder
     @Autowired
     private lateinit var memberJpaRepository: MemberJpaRepository
     @Autowired
@@ -42,7 +42,7 @@ class AuthenticationServiceIntegrationTest: IntegrationTestSupport() {
         // given
         val phoneNumber = "010-0000-0000"
         val password = "password"
-        memberJpaRepository.save(Member(phoneNumber, encoder.encode(password), "name"))
+        memberJpaRepository.save(Member(phoneNumber, passwordEncoder.encode(password), "name"))
 
         val request = SignInRequest(phoneNumber, password)
 
@@ -59,7 +59,7 @@ class AuthenticationServiceIntegrationTest: IntegrationTestSupport() {
         // given
         val phoneNumber = "010-0000-0000"
         val password = "password"
-        val member = memberJpaRepository.save(Member(phoneNumber, encoder.encode(password), "name"))
+        val member = memberJpaRepository.save(Member(phoneNumber, passwordEncoder.encode(password), "name"))
 
         val jti = UUID.randomUUID().toString()
 

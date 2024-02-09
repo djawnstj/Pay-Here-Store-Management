@@ -114,7 +114,7 @@ class AuthenticationServiceTest {
     }
 
     @Test
-    fun `토큰 재발급 시 전달 받은 refreshToken 의 jti 으로 찾은 TokenCache 가 없다면 예외를 반환한다`() {
+    fun `토큰 재발급 시 전달 받은 refreshToken 의 jti 으로 찾은 토큰이 없다면 예외를 반환한다`() {
         // given
         val originRefreshToken = "originRefreshToken"
         val request = TokenRefreshRequest(originRefreshToken)
