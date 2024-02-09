@@ -25,6 +25,7 @@ class AuthenticationService(
     private val authenticationManager: AuthenticationManager,
 ) {
 
+    @Transactional
     fun signIn(request: SignInRequest): SignInResponse {
         val member: Member = authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(request.phoneNumber, request.loginPassword)
@@ -37,6 +38,7 @@ class AuthenticationService(
         return authenticationCredentials.run { SignInResponse(accessToken, refreshToken) }
     }
 
+    @Transactional
     fun refreshToken(request: TokenRefreshRequest): TokenRefreshResponse {
         val presentedRefreshToken = request.refreshToken
 
