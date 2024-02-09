@@ -38,6 +38,9 @@ dependencies {
     // Spring Web
     implementation("org.springframework.boot:spring-boot-starter-web")
 
+    // Validation
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
     // JPA
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
@@ -55,8 +58,8 @@ dependencies {
     testImplementation("com.ninja-squad:springmockk:4.0.2")
 
     // 시큐리티
-//    implementation("org.springframework.boot:spring-boot-starter-security")
-//    testImplementation("org.springframework.security:spring-security-test")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
 
     // 로깅
     implementation("io.github.oshai:kotlin-logging-jvm:5.1.0")
