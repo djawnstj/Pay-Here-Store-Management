@@ -24,6 +24,11 @@ enum class ErrorCode(
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 회원 정보를 찾을 수 없습니다.", "ME0001"),
     DUPLICATED_REGISTER_PHONE_NUMBER(HttpStatus.CONFLICT, "이미 존재하는 휴대폰 번호 입니다.", "ME0002"),
 
+    // PRODUCT
+    DUPLICATED_REGISTER_PRODUCT_CATEGORY_NAME(HttpStatus.CONFLICT, "이미 존재하는 카테고리 입니다.", "PE0001"),
+    PRODUCT_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "카테고리를 찾을 수 없습니다..", "PE0002"),
+    PRODUCT_NOT_FOUND(HttpStatus.NOT_FOUND, "상품을 찾을 수 없습니다..", "PE0003"),
+
     // INPUT VALIDATION
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "입력값이 올바르지 않습니다.", "VE0001"),
     NO_CONTENT_HTTP_BODY(HttpStatus.BAD_REQUEST, "정상적인 요청 본문이 아닙니다.", "VE0002"),
