@@ -2,6 +2,13 @@ spring:
   profiles:
     default: local
 
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          endpoints: localhost:9200
+          use-ssl: false
+
   jpa:
     open-in-view: false
     hibernate:
