@@ -1,12 +1,8 @@
 package org.djawnstj.store.auth.repository
 
-import org.djawnstj.store.auth.entity.AuthenticationCredentials
-import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 
-typealias Token = AuthenticationCredentials
-
-@Repository
+//@Repository
 @Transactional(readOnly = true)
 class TokenQueryRepository(
     private val tokenJpaRepository: TokenJpaRepository
