@@ -4,6 +4,7 @@ import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import org.djawnstj.store.ControllerTestSupport
+import org.djawnstj.store.WithCustomMockUser
 import org.djawnstj.store.common.exception.ErrorCode
 import org.djawnstj.store.product.dto.categoryregistration.ProductCategoryRegistrationRequest
 import org.djawnstj.store.product.dto.delete.ProductDeleteRequest
@@ -24,6 +25,7 @@ import java.time.LocalDate
 class ProductControllerTest: ControllerTestSupport() {
 
     @Test
+    @WithCustomMockUser
     fun `상품 카테고리를 등록한다`() {
         // given
         val request = ProductCategoryRegistrationRequest("커피")
@@ -39,6 +41,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품 카테고리를 등록할때 카테고리 이름은 필수로 입력해야 한다`() {
         // given
         val request1 = ProductCategoryRegistrationRequest("")
@@ -60,6 +63,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 등록한다`() {
         // given
         val request = ProductRegistrationRequest(
@@ -84,6 +88,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 등록할때, 카테고리 번호는 필수로 입력해야 한다`() {
         // given
         val request = ProductRegistrationRequest(
@@ -107,6 +112,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 등록할때, 올바른 상품 가격을 입력해야 한다`() {
         // given
         val request1 = ProductRegistrationRequest(
@@ -194,6 +200,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 등록할때, 올바른 원가 입력해야 한다`() {
         // given
         val request1 = ProductRegistrationRequest(
@@ -281,6 +288,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 등록할때, 상품 이름은 필수로 입력해야 한다`() {
         // given
         val request1 = ProductRegistrationRequest(
@@ -320,6 +328,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 등록할때, 상품 설명은 필수로 입력해야 한다`() {
         // given
         val request1 = ProductRegistrationRequest(
@@ -359,6 +368,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 등록할때, 바코드 필수로 입력해야 한다`() {
         // given
         val request1 = ProductRegistrationRequest(
@@ -398,6 +408,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 등록할때, 올바른 유통기한을 입력해야 한다`() {
         // given
         val request1 = ProductRegistrationRequest(
@@ -437,6 +448,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 등록할때, 상품 사이즈를 입력해야 한다`() {
         // given
         val request1 = ProductRegistrationRequest(
@@ -492,6 +504,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 수정한다`() {
         // given
         val request = ProductUpdateRequest(
@@ -517,6 +530,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 수정할때, 상품 번호를 필수로 입력해야 한다`() {
         // given
         val request = ProductUpdateRequest(
@@ -541,6 +555,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 수정할때, 상품 가격을 수정하려면 올바른 범위의 가격이어야 한다`() {
         // given
         val request1 = ProductUpdateRequest(
@@ -602,6 +617,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 수정할때, 원가를 수정하려면 올바른 범위의 가격이어야 한다`() {
         // given
         val request1 = ProductUpdateRequest(
@@ -663,6 +679,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 수정할때, 유통기한을 수정하려면 yyyy-MM-dd 형식이어야 한다`() {
         // given
         val request = mapOf(
@@ -680,6 +697,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 수정할때, 상품 크기를 변경하려면 올바른 형식이어야 한다`() {
         // given
         val request1 = mapOf(
@@ -707,6 +725,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 삭제한다`() {
         // given
         val request = ProductDeleteRequest(1L)
@@ -722,6 +741,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 삭제할때, 상품 번호를 필수로 입력해야 한다`() {
         // given
         val request = ProductDeleteRequest(null)
@@ -736,6 +756,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `페이지 기반으로 상품 목록을 조회한다`() {
         // given
         val page = 1
@@ -755,6 +776,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `상품을 상세 조회한다`() {
         // given
         val id = 1
@@ -771,6 +793,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `검색어로 상품 목록을 검색한다`() {
         // given
         val query = "ㅅㅋㄹ"
@@ -788,6 +811,7 @@ class ProductControllerTest: ControllerTestSupport() {
     }
 
     @Test
+    @WithCustomMockUser
     fun `검색어로 상품 목록을 검색할때 검색어는 필수로 입력해야 한다`() {
         // given
         val query1 = ""
