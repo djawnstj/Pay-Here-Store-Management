@@ -52,6 +52,7 @@ services:
     depends_on:
       - store-management-elasticsearch
       - store-management-database
+      - store-management-redis
     image: ${DOCKER_OWNER}/store-management-app
     environment:
       - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
