@@ -63,7 +63,7 @@
 - URL: `/api/v1/auth/refresh`
 - Method: `POST`
 - Header
-``` json
+``` 
 Authorization: Bearer {accessToken}
 ```
 - Request
@@ -93,7 +93,7 @@ Authorization: Bearer {accessToken}
 - URL: `/api/v1/auth/logout`
 - Method: `POST`
 - Header
-``` json
+```
 Authorization: Bearer {accessToken}
 ```
 
@@ -103,7 +103,7 @@ Authorization: Bearer {accessToken}
 - URL: `/api/v1/auth/refresh-token`
 - Method: `POST`
 - Request
-```json
+``` json
 {
   "refreshToken": ".."
 }
@@ -128,7 +128,7 @@ Authorization: Bearer {accessToken}
 - URL: `/api/v1/products`
 - Method: `POST`
 - Header
-``` json
+``` 
 Authorization: Bearer {accessToken}
 ```
 - Request
@@ -144,7 +144,7 @@ Authorization: Bearer {accessToken}
 - URL: `/api/v1/products`
 - Method: `POST`
 - Header
-``` json
+``` 
   Authorization: Bearer {accessToken}
 ```
 - Request
@@ -166,8 +166,8 @@ Authorization: Bearer {accessToken}
 ### 상품 수정
 - URL: `/api/v1/products`
 - Method: `PATCH`
-- Header:
-``` json
+- Header
+``` 
 Authorization: Bearer {accessToken}
 ```
 - Request
@@ -188,7 +188,7 @@ Authorization: Bearer {accessToken}
 - URL: `/api/v1/products`
 - Method: `GET`
 - Header
-``` json
+``` 
 Authorization: Bearer {accessToken}
 ```
 - Query Parameter
@@ -218,7 +218,7 @@ Authorization: Bearer {accessToken}
 - URL: `/api/v1/products/{id}`
 - Method: `GET`
 - Header
-``` json
+``` 
 Authorization: Bearer {accessToken}
 ```
 - Response
@@ -242,7 +242,7 @@ Authorization: Bearer {accessToken}
 - URL: `/api/v1/products/search`
 - Method: `GET`
 - Header
-``` json
+``` 
 Authorization: Bearer {accessToken}
 ```
 - Query Parameter
@@ -272,7 +272,7 @@ Authorization: Bearer {accessToken}
 - URL: `/api/v1/products`
 - Method: `DELETE`
 - Header
-``` json
+``` 
 Authorization: Bearer {accessToken}
 ```
 - Request
