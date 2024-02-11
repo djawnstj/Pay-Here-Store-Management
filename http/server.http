@@ -70,14 +70,9 @@ Authorization: Bearer {{accessToken}}
 }
 
 ### 상품 목록(페이지 네이션)
-GET {{baseUrl}}{{getProducts}}
+GET {{baseUrl}}{{getProducts}}?page=0&size=10
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
-
-{
-  "page": 1,
-  "size": 10
-}
 
 ### 상품 상세
 GET {{baseUrl}}{{getProductDetail}}/1

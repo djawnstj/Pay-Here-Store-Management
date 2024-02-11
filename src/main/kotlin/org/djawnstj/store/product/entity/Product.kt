@@ -27,7 +27,7 @@ class Product(
     var barcode: String,
     @field:Column(name = "expiration_date")
     var expirationDate: LocalDate,
-    @field:Column(name = "name")
+    @field:Column(name = "size")
     @field:Enumerated(EnumType.STRING)
     var size: CafeProductSize,
 ): BaseEntity() {
