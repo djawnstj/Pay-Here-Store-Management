@@ -1,0 +1,16 @@
+package org.djawnstj.store.common.validation
+
+import jakarta.validation.Constraint
+import jakarta.validation.Payload
+import kotlin.reflect.KClass
+
+@Constraint(validatedBy = [EnumValidator::class])
+@Target(AnnotationTarget.FIELD)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class ValidEnum(
+    val enumClass: KClass<out Enum<*>>,
+    val message: String = "입력값이 올바르지 않습니다.",
+    val nullable: Boolean = false,
+    val groups: Array<KClass<*>> = [],
+    val payload: Array<KClass<out Payload>> = []
+)

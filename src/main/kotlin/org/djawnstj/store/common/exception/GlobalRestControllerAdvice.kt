@@ -20,55 +20,56 @@ class GlobalRestControllerAdvice {
     fun handleGlobalServerException(e: GlobalException): ResponseEntity<Response<*>> =
         ResponseEntity(Response.error(e.errorCode), e.errorCode.status)
 
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleMethodArgumentNotValidException(e: MethodArgumentNotValidException): ResponseEntity<Response<*>> =
+        GlobalException(ErrorCode.INVALID_INPUT_VALUE, e.bindingResult.fieldErrors[0].defaultMessage,e)
+            .let { ex ->
+                ResponseEntity(Response.error(ex.errorCode, ex.message), ex.errorCode.status)
+            }
+
     @ExceptionHandler(AuthenticationException::class)
     fun handleAuthenticationException(e: AuthenticationException): ResponseEntity<Response<*>> =
-        GlobalException(cause = e, errorCode = ErrorCode.UNAUTHORIZED)
+        GlobalException(ErrorCode.UNAUTHORIZED, cause = e)
             .let { ex -> ResponseEntity(Response.error(ex.errorCode), ex.errorCode.status) }
 
     @ExceptionHandler(InsufficientAuthenticationException::class)
     fun handleInsufficientAuthenticationException(e: InsufficientAuthenticationException): ResponseEntity<Response<*>> =
-        GlobalException(cause = e, errorCode = ErrorCode.UNAUTHORIZED)
+        GlobalException(ErrorCode.UNAUTHORIZED, cause = e)
             .let { ex -> ResponseEntity(Response.error(ex.errorCode), ex.errorCode.status) }
 
     @ExceptionHandler(AccessDeniedException::class)
     fun handleAccessDeniedException(e: AccessDeniedException): ResponseEntity<Response<*>> =
-        GlobalException(cause = e, errorCode = ErrorCode.FORBIDDEN)
+        GlobalException(ErrorCode.FORBIDDEN, cause = e)
             .let { ex -> ResponseEntity(Response.error(ex.errorCode), ex.errorCode.status) }
 
     @ExceptionHandler(SignatureException::class)
     fun handleSignatureException(e: SignatureException) =
-        GlobalException(cause = e, errorCode = ErrorCode.INVALID_TOKEN)
+        GlobalException(ErrorCode.INVALID_TOKEN, cause = e)
             .let { ex -> ResponseEntity(Response.error(ex.errorCode), ex.errorCode.status) }
 
     @ExceptionHandler(MalformedJwtException::class)
     fun handleMalformedJwtException(e: MalformedJwtException) =
-        GlobalException(cause = e, errorCode = ErrorCode.INVALID_TOKEN)
+        GlobalException(ErrorCode.INVALID_TOKEN, cause = e)
             .let { ex -> ResponseEntity(Response.error(ex.errorCode), ex.errorCode.status) }
 
     @ExceptionHandler(ExpiredJwtException::class)
     fun handleExpiredJwtException(e: ExpiredJwtException) =
-        GlobalException(cause = e, errorCode = ErrorCode.EXPIRED_TOKEN)
-            .let { ex -> ResponseEntity(Response.error(ex.errorCode), ex.errorCode.status) }
-
-
-    @ExceptionHandler(MethodArgumentNotValidException::class)
-    fun handleMethodArgumentNotValidException(e: MethodArgumentNotValidException): ResponseEntity<Response<*>> =
-        GlobalException(ErrorCode.INVALID_INPUT_VALUE, ErrorCode.INVALID_INPUT_VALUE.message, e,)
+        GlobalException(ErrorCode.EXPIRED_TOKEN, cause = e)
             .let { ex -> ResponseEntity(Response.error(ex.errorCode), ex.errorCode.status) }
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
     fun handleHttpMessageNotReadableException(e: HttpMessageNotReadableException): ResponseEntity<Response<*>> =
-        GlobalException(ErrorCode.NO_CONTENT_HTTP_BODY, ErrorCode.NO_CONTENT_HTTP_BODY.message, e)
+        GlobalException(ErrorCode.NO_CONTENT_HTTP_BODY, cause = e)
             .let { ex -> ResponseEntity(Response.error(ex.errorCode), ex.errorCode.status) }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     fun handleHttpRequestMethodNotSupportedException(e: HttpRequestMethodNotSupportedException): ResponseEntity<Response<*>> =
-        GlobalException(ErrorCode.NOT_SUPPORTED_METHOD, ErrorCode.NOT_SUPPORTED_METHOD.message, e)
+        GlobalException(ErrorCode.NOT_SUPPORTED_METHOD, cause = e)
             .let { ex -> ResponseEntity(Response.error(ex.errorCode), ex.errorCode.status) }
 
     @ExceptionHandler(Throwable::class)
     fun handleThrowable(t: Throwable): ResponseEntity<Response<*>> =
-        GlobalException(cause = t, errorCode = ErrorCode.INTERNAL_SEVER_ERROR)
+        GlobalException(ErrorCode.INTERNAL_SEVER_ERROR, cause = t)
             .let { ex -> ResponseEntity(Response.error(ex.errorCode), ex.errorCode.status) }
 
 }

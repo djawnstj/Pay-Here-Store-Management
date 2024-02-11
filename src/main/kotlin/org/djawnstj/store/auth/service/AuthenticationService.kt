@@ -1,9 +1,9 @@
 package org.djawnstj.store.auth.service
 
-import org.djawnstj.store.auth.dto.signin.SignInResponse
+import org.djawnstj.store.auth.dto.signin.LogInResponse
 import org.djawnstj.store.auth.dto.refresh.TokenRefreshRequest
 import org.djawnstj.store.auth.dto.refresh.TokenRefreshResponse
-import org.djawnstj.store.auth.dto.signin.SignInRequest
+import org.djawnstj.store.auth.dto.signin.LogInRequest
 import org.djawnstj.store.auth.entity.AuthenticationCredentials
 import org.djawnstj.store.auth.repository.TokenRepository
 import org.djawnstj.store.common.exception.ErrorCode
@@ -26,7 +26,7 @@ class AuthenticationService(
 ) {
 
     @Transactional
-    fun signIn(request: SignInRequest): SignInResponse {
+    fun logIn(request: LogInRequest): LogInResponse {
         val member: Member = authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken(request.phoneNumber, request.loginPassword)
         ).principal as Member
@@ -35,7 +35,7 @@ class AuthenticationService(
 
         tokenRepository.save(authenticationCredentials)
 
-        return authenticationCredentials.run { SignInResponse(accessToken, refreshToken) }
+        return authenticationCredentials.run { LogInResponse(accessToken, refreshToken) }
     }
 
     @Transactional
