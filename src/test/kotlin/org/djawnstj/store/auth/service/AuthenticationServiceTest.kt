@@ -7,7 +7,7 @@ import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.djawnstj.store.auth.dto.refresh.TokenRefreshRequest
-import org.djawnstj.store.auth.dto.signin.SignInRequest
+import org.djawnstj.store.auth.dto.signin.LogInRequest
 import org.djawnstj.store.auth.entity.AuthenticationCredentials
 import org.djawnstj.store.auth.repository.TokenRepository
 import org.djawnstj.store.common.exception.ErrorCode
@@ -32,7 +32,7 @@ class AuthenticationServiceTest {
         // given
         val phoneNumber = "010-0000-0000"
         val password = "password"
-        val request = SignInRequest(phoneNumber, password)
+        val request = LogInRequest(phoneNumber, password)
 
         val authentication: Authentication = mockk()
         val member: Member = mockk()
@@ -49,7 +49,7 @@ class AuthenticationServiceTest {
         every { authenticationCredentials.refreshToken } returns refreshToken
 
         // when
-        val response = authService.signIn(request)
+        val response = authService.logIn(request)
 
         // then
         assertThat(response)

@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.djawnstj.store.IntegrationTestSupport
 import org.djawnstj.store.auth.config.JwtProperties
 import org.djawnstj.store.auth.dto.refresh.TokenRefreshRequest
-import org.djawnstj.store.auth.dto.signin.SignInRequest
+import org.djawnstj.store.auth.dto.signin.LogInRequest
 import org.djawnstj.store.auth.entity.AuthenticationCredentials
 import org.djawnstj.store.auth.repository.TokenRepository
 import org.djawnstj.store.member.entity.Member
@@ -44,10 +44,10 @@ class AuthenticationServiceIntegrationTest: IntegrationTestSupport() {
         val password = "password"
         memberJpaRepository.save(Member(phoneNumber, passwordEncoder.encode(password), "name"))
 
-        val request = SignInRequest(phoneNumber, password)
+        val request = LogInRequest(phoneNumber, password)
 
         // when
-        val response = authService.signIn(request)
+        val response = authService.logIn(request)
 
         // then
         assertThat(response.accessToken).isNotBlank()

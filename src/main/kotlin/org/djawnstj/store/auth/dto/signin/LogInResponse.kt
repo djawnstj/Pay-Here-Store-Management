@@ -1,6 +1,6 @@
 package org.djawnstj.store.auth.dto.signin
 
-data class SignInResponse(
+data class LogInResponse(
     val accessToken: String,
     val refreshToken: String
 )
