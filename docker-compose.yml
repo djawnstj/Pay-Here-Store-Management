@@ -1,5 +1,21 @@
 version: "3.8"
 services:
+
+  store-management-elasticsearch:
+    container_name: store-management-elasticsearch
+    build:
+      dockerfile: Dockerfile
+      context: ./docker/elasticsearch
+    image: ${DOCKER_OWNER}/store-management-elasticsearch
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    networks:
+      - default
+      - corn_net
+
   store-management-database:
     container_name: store-management-database
     build:
@@ -17,18 +33,15 @@ services:
     networks:
       - default
       - corn_net
-
-  store-management-elasticsearch:
-    container_name: store-management-elasticsearch
+        
+  store-management-redis:
+    container_name: store-management-redis
     build:
       dockerfile: Dockerfile
-      context: ./docker/elasticsearch
-    image: ${DOCKER_OWNER}/store-management-elasticsearch
-    environment:
-      - "discovery.type=single-node"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      context: docker/redis
+    image: ${DOCKER_OWNER}/store-management-redis
     ports:
-      - "9200:9200"
+      - "6379:6379"
     networks:
       - default
       - corn_net
