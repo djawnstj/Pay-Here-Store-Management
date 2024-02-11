@@ -2,6 +2,7 @@ package org.djawnstj.store
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
+import io.mockk.unmockkStatic
 import org.djawnstj.store.auth.api.AuthenticationController
 import org.djawnstj.store.auth.config.SecurityConfig
 import org.djawnstj.store.auth.repository.TokenRepository
@@ -14,6 +15,7 @@ import org.djawnstj.store.member.api.MemberController
 import org.djawnstj.store.member.service.MemberService
 import org.djawnstj.store.product.api.ProductController
 import org.djawnstj.store.product.service.ProductService
+import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -22,6 +24,7 @@ import org.springframework.context.annotation.FilterType
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.AuthenticationProvider
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.access.AccessDeniedHandler
@@ -99,5 +102,10 @@ abstract class ControllerTestSupport {
         this.andExpect(MockMvcResultMatchers.status().isBadRequest)
             .andExpect(MockMvcResultMatchers.jsonPath("$.meta.code").value(ErrorCode.INVALID_INPUT_VALUE.status.value()))
             .andExpect(MockMvcResultMatchers.jsonPath("$.meta.message").value(message))
+
+    @BeforeEach
+    fun beforeEach() {
+        unmockkStatic(SecurityContextHolder::class)
+    }
 
 }
