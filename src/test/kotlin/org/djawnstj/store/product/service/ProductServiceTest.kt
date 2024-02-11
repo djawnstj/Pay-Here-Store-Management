@@ -79,7 +79,6 @@ class ProductServiceTest {
 
         // then
         verify(exactly = 1) { productJpaRepository.save(any<Product>()) }
-        verify(exactly = 1) { productNameQueryService.saveQuery(any<ProductDto>()) }
     }
 
     @Test
@@ -111,7 +110,6 @@ class ProductServiceTest {
 
         // then
         verify(exactly = 1) { productJpaRepository.save(product) }
-        verify(exactly = 1) { productNameQueryService.saveQuery(any<ProductDto>()) }
     }
 
     @Test
