@@ -1,0 +1,115 @@
+### 회원 가입 (USER)
+POST {{baseUrl}}{{signUpEndPoint}}
+Content-Type: application/json
+
+{
+  "phoneNumber": "010-0000-0000",
+  "loginPassword": "password",
+  "name": "name",
+  "role": "OWNER"
+}
+
+### 로그인
+POST {{baseUrl}}{{loginEndPoint}}
+Content-Type: application/json
+
+{
+  "phoneNumber": "010-0000-0000",
+  "loginPassword": "password"
+}
+
+> {%
+    client.test("Validate", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.contentType.mimeType === "application/json", "Expected 'application/json'");
+        client.assert(response.body.accessToken.trim().length > 0);
+        client.assert(response.body.refreshToken.trim().length > 0);
+    });
+
+    client.global.set("accessToken", response.body.data.accessToken)
+    client.global.set("refreshToken", response.body.data.refreshToken)
+%}
+
+### 상품 카테고리 등록
+POST {{baseUrl}}{{regitsterProductCategory}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "categoryName": "커피"
+}
+
+### 상품 등록
+POST {{baseUrl}}{{regitsterProduct}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "categoryId":  1,
+  "sellingPrice": "4000",
+  "costPrice":  "1000",
+  "productName": "아메리카노",
+  "description":  "아메리카노",
+  "barcode": "바코드",
+  "expirationDate":  "2024-03-31",
+  "size": "SMALL"
+}
+
+### 상품 수정
+PATCH {{baseUrl}}{{regitsterProduct}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "id": 1,
+  "categoryId":  1,
+  "sellingPrice": "3500",
+  "description":  "고급 원두로 만든 아메리카노",
+  "expirationDate":  "2024-03-01",
+  "size": "LARGE"
+}
+
+### 상품 목록(페이지 네이션)
+GET {{baseUrl}}{{getProducts}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "page": 1,
+  "size": 10
+}
+
+### 상품 상세
+GET {{baseUrl}}{{getProductDetail}}/1
+Authorization: Bearer {{accessToken}}
+
+### 상품 검색(like)
+GET {{baseUrl}}{{searchProducts}}?query=메리
+Authorization: Bearer {{accessToken}}
+
+### 상품 검색(초성)
+GET {{baseUrl}}{{searchProducts}}?query=ㅁㄹ
+Authorization: Bearer {{accessToken}}
+
+### 상품 삭제
+DELETE {{baseUrl}}{{deleteProduct}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "id": 1
+}
+
+### 토큰 재발급
+POST {{baseUrl}}{{refreshEndPoint}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### 로그아웃
+POST {{baseUrl}}{{logoutEndPoint}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
