@@ -1,6 +1,8 @@
 package org.djawnstj.store.auth.api
 
 import jakarta.validation.Valid
+import org.djawnstj.store.auth.dto.refresh.TokenRefreshRequest
+import org.djawnstj.store.auth.dto.refresh.TokenRefreshResponse
 import org.djawnstj.store.auth.dto.signin.LogInRequest
 import org.djawnstj.store.auth.dto.signin.LogInResponse
 import org.djawnstj.store.auth.service.AuthenticationService
@@ -17,5 +19,9 @@ class AuthenticationController(
     @PostMapping("/api/v1/auth/log-in")
     fun logIn(@Valid @RequestBody request: LogInRequest): Response<LogInResponse> =
         Response.success(authenticationService.logIn(request))
+
+    @PostMapping("/api/v1/auth/refresh")
+    fun refresh(@Valid @RequestBody request: TokenRefreshRequest): Response<TokenRefreshResponse> =
+        Response.success(authenticationService.refreshToken(request))
 
 }

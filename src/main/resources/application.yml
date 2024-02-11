@@ -1,13 +1,6 @@
 spring:
   profiles:
-    default: local
-
-  data:
-    elasticsearch:
-      client:
-        reactive:
-          endpoints: localhost:9200
-          use-ssl: false
+    default: ${SPRING_PROFILES_ACTIVE}
 
   jpa:
     open-in-view: false
@@ -26,3 +19,8 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+
+jwt:
+  key: abcdefghijklmnopqrstuvwxyz1234567890
+  access-token-expiration: 3600000 # 1 day
+  refresh-token-expiration: 604800000 # 7 days

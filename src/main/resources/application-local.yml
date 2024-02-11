@@ -39,3 +39,6 @@ logging:
         orm:
           jpa: debug
         transaction: debug
+
+elastic:
+  host: localhost:9200

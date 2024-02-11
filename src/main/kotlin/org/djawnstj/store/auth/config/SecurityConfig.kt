@@ -51,7 +51,7 @@ class SecurityConfig(
             }
             authorizeHttpRequests {
                 it
-                    .requestMatchers(PathRequest.toH2Console()).permitAll()
+//                    .requestMatchers(PathRequest.toH2Console()).permitAll()
                     .requestMatchers(*createMvcRequestMatcherForWhitelist(mvc)).permitAll()
                     .requestMatchers(createMvcRequestMatcher("/api/v1/members", mvc, HttpMethod.POST)).permitAll()
                     .anyRequest()

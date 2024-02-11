@@ -1,7 +1,9 @@
 package org.djawnstj.store.auth.api
 
 import io.mockk.every
+import io.mockk.mockk
 import org.djawnstj.store.ControllerTestSupport
+import org.djawnstj.store.auth.dto.refresh.TokenRefreshRequest
 import org.djawnstj.store.auth.dto.signin.LogInRequest
 import org.djawnstj.store.auth.dto.signin.LogInResponse
 import org.junit.jupiter.api.Test
@@ -108,6 +110,43 @@ class AuthenticationControllerTest: ControllerTestSupport() {
                 .contentType(MediaType.APPLICATION_JSON))
             .andDo(MockMvcResultHandlers.print())
             .isInvalidInputValueResponse("비밀번호는 필수로 입력하셔야 합니다.")
+    }
+
+    @Test
+    fun `토큰 재발급`() {
+        // given
+        val request1 = TokenRefreshRequest("refreshToken")
+
+        every { authenticationService.refreshToken(request1) } returns mockk(relaxed = true)
+
+        // when then
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/api/v1/auth/refresh")
+                .content(objectMapper.writeValueAsBytes(request1))
+                .contentType(MediaType.APPLICATION_JSON))
+            .andDo(MockMvcResultHandlers.print())
+            .isOkBaseResponse()
+    }
+
+    @Test
+    fun `토큰을 재발급 할때, 토큰값은 필수입니다`() {
+        // given
+        val request1 = TokenRefreshRequest("")
+        val request2 = TokenRefreshRequest(null)
+
+        // when then
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/api/v1/auth/refresh")
+                .content(objectMapper.writeValueAsBytes(request1))
+                .contentType(MediaType.APPLICATION_JSON))
+            .andDo(MockMvcResultHandlers.print())
+            .isInvalidInputValueResponse("토큰 값은 필수 입니다.")
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/api/v1/auth/refresh")
+                .content(objectMapper.writeValueAsBytes(request2))
+                .contentType(MediaType.APPLICATION_JSON))
+            .andDo(MockMvcResultHandlers.print())
+            .isInvalidInputValueResponse("토큰 값은 필수 입니다.")
     }
 
 }
