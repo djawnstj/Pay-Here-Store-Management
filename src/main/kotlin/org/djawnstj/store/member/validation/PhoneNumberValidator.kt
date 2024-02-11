@@ -8,7 +8,8 @@ class PhoneNumberValidator: ConstraintValidator<PhoneNumber, String> {
 
     private lateinit var regexp: String
 
-    override fun isValid(value: String, context: ConstraintValidatorContext): Boolean = Pattern.matches(regexp, value)
+    override fun isValid(value: String?, context: ConstraintValidatorContext): Boolean =
+        if (value.isNullOrBlank()) false else Pattern.matches(regexp, value)
 
     override fun initialize(constraintAnnotation: PhoneNumber) {
         regexp = constraintAnnotation.regexp
