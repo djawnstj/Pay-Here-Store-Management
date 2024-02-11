@@ -134,7 +134,7 @@ class AuthenticationServiceTest {
     }
 
     @Test
-    fun `토큰 재발급 시 전달 받은 refreshToken 과 토큰에 포함된 jti 로 저장소에서 찾은 refreshToken 이 다른 경우 예외를 반환한다`() {
+    fun `토큰 재발급 시 전달 받은 refreshToken 과 저장소에서 찾은 refreshToken 이 다른 경우 예외를 반환한다`() {
         // given
         val originRefreshToken = "originRefreshToken"
         val request = TokenRefreshRequest(originRefreshToken)
