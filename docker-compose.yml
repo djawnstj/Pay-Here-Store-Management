@@ -1,0 +1,57 @@
+version: "3.8"
+services:
+  store-management-database:
+    container_name: store-management-database
+    build:
+      dockerfile: Dockerfile
+      context: docker/database
+    image: ${DOCKER_OWNER}/store-management-database
+    environment:
+      - MYSQL_DATABASE=store_management
+      - MYSQL_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+    volumes:
+      - ./docker/database/config:/etc/mysql/conf.d
+      - ./docker/database/init:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - default
+      - corn_net
+
+  store-management-elasticsearch:
+    container_name: store-management-elasticsearch
+    build:
+      dockerfile: Dockerfile
+      context: ./docker/elasticsearch
+    image: ${DOCKER_OWNER}/store-management-elasticsearch
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    networks:
+      - default
+      - corn_net
+
+  store-management-app:
+    container_name: store-management-app
+    build: .
+    depends_on:
+      - store-management-elasticsearch
+      - store-management-database
+    image: ${DOCKER_OWNER}/store-management-app
+    environment:
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - TZ=Asia/Seoul
+    ports:
+      - "8080:8082"
+    restart: always
+    networks:
+      - default
+      - corn_net
+
+networks:
+  corn_net:
+    driver: bridge
