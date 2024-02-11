@@ -10,6 +10,7 @@ import org.djawnstj.store.product.dto.ProductDto
 import org.djawnstj.store.product.dto.categoryregistration.ProductCategoryRegistrationRequest
 import org.djawnstj.store.product.dto.delete.ProductDeleteRequest
 import org.djawnstj.store.product.dto.detail.ProductDetailRequest
+import org.djawnstj.store.product.dto.list.ProductListRequest
 import org.djawnstj.store.product.dto.registration.ProductRegistrationRequest
 import org.djawnstj.store.product.dto.search.ProductSearchRequest
 import org.djawnstj.store.product.dto.update.ProductUpdateRequest
@@ -28,7 +29,7 @@ class ProductServiceTest {
 
     private val productJpaRepository: ProductJpaRepository = mockk()
     private val productQueryRepository: ProductQueryRepository = mockk()
-    private val productNameQueryService: ProductNameQueryService = mockk()
+    private val productNameQueryService: ProductNameQueryService = mockk(relaxed = true)
     private val productCategoryJpaRepository: ProductCategoryJpaRepository = mockk()
     private val productCategoryQueryRepository: ProductCategoryQueryRepository = mockk()
 
@@ -110,6 +111,7 @@ class ProductServiceTest {
 
         // then
         verify(exactly = 1) { productJpaRepository.save(product) }
+        verify(exactly = 1) { productNameQueryService.saveQuery(any<ProductDto>()) }
     }
 
     @Test
@@ -179,7 +181,7 @@ class ProductServiceTest {
         every { productQueryRepository.findAll(pageable) } returns products
 
         // when then
-        productService.getProductsByPage(pageable)
+        productService.getProductsByPage(ProductListRequest(pageable))
     }
 
     @Test

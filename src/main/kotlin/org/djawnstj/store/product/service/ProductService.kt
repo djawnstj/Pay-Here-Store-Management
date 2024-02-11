@@ -10,6 +10,7 @@ import org.djawnstj.store.product.dto.categoryregistration.ProductCategoryRegist
 import org.djawnstj.store.product.dto.delete.ProductDeleteRequest
 import org.djawnstj.store.product.dto.detail.ProductDetailRequest
 import org.djawnstj.store.product.dto.detail.ProductDetailResponse
+import org.djawnstj.store.product.dto.list.ProductListRequest
 import org.djawnstj.store.product.dto.list.ProductListResponse
 import org.djawnstj.store.product.dto.registration.ProductRegistrationRequest
 import org.djawnstj.store.product.dto.search.ProductSearchRequest
@@ -22,7 +23,6 @@ import org.djawnstj.store.product.repository.ProductCategoryJpaRepository
 import org.djawnstj.store.product.repository.ProductCategoryQueryRepository
 import org.djawnstj.store.product.repository.ProductJpaRepository
 import org.djawnstj.store.product.repository.ProductQueryRepository
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -95,8 +95,8 @@ class ProductService(
         productJpaRepository.save(product)
     }
 
-    fun getProductsByPage(pageable: Pageable): ProductListResponse {
-        val products = productQueryRepository.findAll(pageable)
+    fun getProductsByPage(request: ProductListRequest): ProductListResponse {
+        val products = productQueryRepository.findAll(request.pageable)
         return ProductListResponse(products.map(ProductDto::of))
     }
 

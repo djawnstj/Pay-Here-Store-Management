@@ -6,6 +6,7 @@ import org.djawnstj.store.IntegrationTestSupport
 import org.djawnstj.store.product.dto.categoryregistration.ProductCategoryRegistrationRequest
 import org.djawnstj.store.product.dto.delete.ProductDeleteRequest
 import org.djawnstj.store.product.dto.detail.ProductDetailRequest
+import org.djawnstj.store.product.dto.list.ProductListRequest
 import org.djawnstj.store.product.dto.registration.ProductRegistrationRequest
 import org.djawnstj.store.product.dto.search.ProductSearchRequest
 import org.djawnstj.store.product.dto.update.ProductUpdateRequest
@@ -270,7 +271,7 @@ class ProductServiceIntegrationTest: IntegrationTestSupport() {
         val pageable = PageRequest.of(1, 5)
 
         // when
-        val result = productService.getProductsByPage(pageable)
+        val result = productService.getProductsByPage(ProductListRequest(pageable))
 
         // then
         assertThat(result.products).hasSize(5)
